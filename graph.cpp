@@ -24,5 +24,5 @@ int Graph::size() {
 }
 
 Graph::~Graph() {
-    //delete m;
+    delete m;
 }

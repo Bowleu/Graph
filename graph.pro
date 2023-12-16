@@ -13,6 +13,7 @@ SOURCES += \
     interface.cpp \
     main.cpp \
     paintingwidget.cpp \
+    stategraph.cpp \
     widget.cpp
 
 HEADERS += \
@@ -21,6 +22,7 @@ HEADERS += \
     matrix.h \
     paintingwidget.h \
     squareMatrix.h \
+    stategraph.h \
     widget.h
 
 # Default rules for deployment.

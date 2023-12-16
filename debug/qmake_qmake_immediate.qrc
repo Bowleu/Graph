@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+<file alias="values.txt">C:/QtProjects/graph/values.txt</file>
+</qresource>
+</RCC>

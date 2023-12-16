@@ -6,9 +6,9 @@
 
 Interface::Interface(QWidget *parent) : QWidget(parent)
 {
-    setGeometry(10, 10, 200, 580);
+    setGeometry(10, 10, 800, 650);
     showGraph = new QPushButton(this);
-    showGraph->setGeometry(5, 290, 190, 60);
+    showGraph->setGeometry(5, 360, 190, 60);
     showGraph->setStyleSheet("font-size: 12pt;");
     showGraph->setText("Показать граф");
     filePath = new QLineEdit(this);
@@ -20,7 +20,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     interfaceHeader->setAlignment(Qt::AlignCenter);
     interfaceHeader->setText("Управление");
     messageHeader = new QLabel(this);
-    messageHeader->setGeometry(0, 360, 200, 50);
+    messageHeader->setGeometry(0, 430, 200, 50);
     messageHeader->setStyleSheet("font-weight: 800; font-size: 14pt;");
     messageHeader->setAlignment(Qt::AlignCenter);
     messageHeader->setText("Сообщение");
@@ -31,11 +31,29 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     showGraphHeader->setWordWrap(true);
     showGraphHeader->setText("Введите путь к файлу: ");
     message = new QLabel(this);
-    message->setGeometry(5, 410, 190, 160);
+    message->setGeometry(5, 480, 190, 160);
     message->setStyleSheet("font-size: 11pt;");
     message->setWordWrap(true);
+    activeNodeHeader = new QLabel(this);
+    activeNodeHeader->setGeometry(5, 290, 190, 60);
+    activeNodeHeader->setStyleSheet("font-size: 12pt;");
+    activeNodeHeader->setWordWrap(true);
+    activeNodeHeader->setText("№ Активной вершины: ");
+    activeNode = new QLineEdit(this);
+    activeNode->setGeometry(135, 290, 60, 60);
+    activeNode->setStyleSheet("font-size: 12pt;");
+    turnCCW = new QPushButton(this);
+    turnCCW->setGeometry(250, 560, 250, 60);
+    turnCCW->setStyleSheet("font-size: 12pt;");
+    turnCCW->setText("По часовой");
+    turnCW = new QPushButton(this);
+    turnCW->setGeometry(510, 560, 250, 60);
+    turnCW->setStyleSheet("font-size: 12pt;");
+    turnCW->setText("Против часовой");
     pw = nullptr;
     connect(showGraph, &QPushButton::clicked, this, &Interface::updateGraph);
+    connect(turnCCW, &QPushButton::clicked, this, &Interface::decrementActive);
+    connect(turnCW, &QPushButton::clicked, this, &Interface::incrementActive);
 }
 
 void Interface::setPaintingWidget(PaintingWidget *pw)
@@ -55,7 +73,7 @@ Interface::~Interface()
 
 void Interface::updateGraph() {
     QString pathToFile = filePath->text();
-    message->setText("");
+    int activeNodeNum = activeNode->text().toInt();
     if (!QFile::exists("values.txt")) {
         message->setText("Ошибка! Файл не найден!");
         return;
@@ -89,5 +107,15 @@ void Interface::updateGraph() {
         message->setText("Ошибка! Неквадратная матрица смежности!");
         return;
     }
-    pw->changeGraph(values);
+    if(activeNodeNum>m||activeNodeNum<1){
+        message->setText("Ошибка! Неверный ввод номера активной вершины!");
+        return;
+    }
+    pw->changeGraph(values, activeNodeNum);
+}
+void Interface::incrementActive() {
+    pw->updateActive(1);
+}
+void Interface::decrementActive() {
+    pw->updateActive(0);
 }
