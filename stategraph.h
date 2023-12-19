@@ -8,6 +8,7 @@ class StateGraph : public Graph
 public:
     StateGraph();
     StateGraph(QVector<int> values);
+    int findAdjVert(bool value);
     void setActive(int value);
     int getActive();
 };

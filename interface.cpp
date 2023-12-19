@@ -42,18 +42,18 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     activeNode = new QLineEdit(this);
     activeNode->setGeometry(135, 290, 60, 60);
     activeNode->setStyleSheet("font-size: 12pt;");
-    turnCCW = new QPushButton(this);
-    turnCCW->setGeometry(250, 560, 250, 60);
-    turnCCW->setStyleSheet("font-size: 12pt;");
-    turnCCW->setText("По часовой");
-    turnCW = new QPushButton(this);
-    turnCW->setGeometry(510, 560, 250, 60);
-    turnCW->setStyleSheet("font-size: 12pt;");
-    turnCW->setText("Против часовой");
+    goToSmallerActive = new QPushButton(this);
+    goToSmallerActive->setGeometry(250, 560, 250, 60);
+    goToSmallerActive->setStyleSheet("font-size: 12pt;");
+    goToSmallerActive->setText("К меньшей вершине");
+    goToBiggerActive = new QPushButton(this);
+    goToBiggerActive->setGeometry(510, 560, 250, 60);
+    goToBiggerActive->setStyleSheet("font-size: 12pt;");
+    goToBiggerActive->setText("К большей вершине");
     pw = nullptr;
     connect(showGraph, &QPushButton::clicked, this, &Interface::updateGraph);
-    connect(turnCCW, &QPushButton::clicked, this, &Interface::decrementActive);
-    connect(turnCW, &QPushButton::clicked, this, &Interface::incrementActive);
+    connect(goToSmallerActive, &QPushButton::clicked, this, &Interface::smallerActive);
+    connect(goToBiggerActive, &QPushButton::clicked, this, &Interface::biggerActive);
 }
 
 void Interface::setPaintingWidget(PaintingWidget *pw)
@@ -113,9 +113,9 @@ void Interface::updateGraph() {
     }
     pw->changeGraph(values, activeNodeNum);
 }
-void Interface::incrementActive() {
+void Interface::biggerActive() {
     pw->updateActive(1);
 }
-void Interface::decrementActive() {
+void Interface::smallerActive() {
     pw->updateActive(0);
 }

@@ -85,8 +85,8 @@ void PaintingWidget::changeGraph(QVector<int> values, int activeNodeNum) {
     update();
 }
 void PaintingWidget::updateActive(bool value) {
-    if(value) g->setActive(g->getActive()+1);
-    else g->setActive(g->getActive()-1);
+    int newVert = g->findAdjVert(value);
+    if(newVert != -1) g->setActive(newVert);
     update();
 }
 PaintingWidget::~PaintingWidget() {

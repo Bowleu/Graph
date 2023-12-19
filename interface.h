@@ -12,7 +12,7 @@ class Interface : public QWidget
     Q_OBJECT
 
     QLineEdit* filePath, *activeNode;
-    QPushButton* showGraph, *turnCCW, *turnCW;
+    QPushButton* showGraph, *goToSmallerActive, *goToBiggerActive;
     QLabel *interfaceHeader, *messageHeader, *message, *showGraphHeader, *activeNodeHeader;
     PaintingWidget* pw;
 public:
@@ -21,8 +21,8 @@ public:
     ~Interface();
 public slots:
     void updateGraph();
-    void decrementActive();
-    void incrementActive();
+    void biggerActive();
+    void smallerActive();
 };
 
 #endif // INTERFACE_H
