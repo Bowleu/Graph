@@ -3,7 +3,7 @@
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
-    setFixedSize(800, 600);
+    setFixedSize(800, 650);
     setWindowTitle("Визуализация графа");
 
     interface = new Interface(this);

@@ -11,9 +11,9 @@ class Interface : public QWidget
 {
     Q_OBJECT
 
-    QLineEdit* filePath;
-    QPushButton* showGraph;
-    QLabel *interfaceHeader, *messageHeader, *message, *showGraphHeader;
+    QLineEdit* filePath, *activeNode;
+    QPushButton* showGraph, *goToSmallerActive, *goToBiggerActive;
+    QLabel *interfaceHeader, *messageHeader, *message, *showGraphHeader, *activeNodeHeader;
     PaintingWidget* pw;
 public:
     Interface(QWidget *parent = nullptr);
@@ -21,6 +21,8 @@ public:
     ~Interface();
 public slots:
     void updateGraph();
+    void biggerActive();
+    void smallerActive();
 };
 
 #endif // INTERFACE_H

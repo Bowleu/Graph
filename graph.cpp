@@ -13,6 +13,7 @@ Graph::Graph(QVector<int> values) {
     for (int i = 0; i < values.size(); i++) {
         (*m)[i] = values[i];
     }
+
 }
 
 int Graph::element(int i, int j) {
@@ -24,5 +25,5 @@ int Graph::size() {
 }
 
 Graph::~Graph() {
-    //delete m;
+    delete m;
 }

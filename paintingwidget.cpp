@@ -28,8 +28,14 @@ void PaintingWidget::paintEvent(QPaintEvent *event)
         font.setPointSize(cf);
         font.setBold(true);
         painter.setFont(font);
+        if(i==g->getActive()){
+            painter.setBrush(QBrush(Qt::yellow));
+            painter.drawEllipse(circleRect);
+            painter.setBrush(QBrush());
+        }
         painter.drawText(circleRect, Qt::AlignCenter, QString().setNum(i + 1));
     }
+
     for (int i = 0; i < count; i++) {
         for (int j = 0; j < count; j++) {
             if (i != j and g->element(i, j) != 0) {
@@ -41,6 +47,7 @@ void PaintingWidget::paintEvent(QPaintEvent *event)
             }
         }
     }
+
     painter.end();
 }
 
@@ -65,18 +72,23 @@ void PaintingWidget::drawLineWithArrow(QPainter& painter, QPointF start, QPointF
 
 PaintingWidget::PaintingWidget(QWidget *parent) : QWidget(parent)
 {
-    g = new Graph();
-    setGeometry(220, 10, 570, 580);
+    g = new StateGraph();
+    setGeometry(220, 10, 570, 500);
 }
-void PaintingWidget::changeGraph(QVector<int> values) {
+void PaintingWidget::changeGraph(QVector<int> values, int activeNodeNum) {
     if (g)
         delete g;
-    g = new Graph(values);
+    g = new StateGraph(values);
     int a = 0;
     a++;
+    g->setActive(activeNodeNum-1);
     update();
 }
-
+void PaintingWidget::updateActive(bool value) {
+    int newVert = g->findAdjVert(value);
+    if(newVert != -1) g->setActive(newVert);
+    update();
+}
 PaintingWidget::~PaintingWidget() {
     if (g)
         delete g;

@@ -67,7 +67,6 @@ template <class Number>
 Number& Matrix<Number>::operator[](int i){
     return values[i];
 }
-
 template <class Number>
 Matrix<Number> Matrix<Number>::transponate() {
     Matrix transponatedMatrix(m, n);

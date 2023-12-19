@@ -3,19 +3,20 @@
 
 #include <QWidget>
 #include <QPaintEvent>
-#include "graph.h"
+#include "stategraph.h"
 
 class PaintingWidget : public QWidget
 {
     Q_OBJECT
-    Graph *g;
+    StateGraph *g;
     QPointF* centers;
     void drawLineWithArrow(QPainter& painter, QPointF start, QPointF end);
 protected:
     void paintEvent(QPaintEvent* event);
 public:
     PaintingWidget(QWidget *parent = nullptr);
-    void changeGraph(QVector<int> values);
+    void changeGraph(QVector<int> values, int activeNodeNum);
+    void updateActive(bool value);
     ~PaintingWidget();
 };
 
